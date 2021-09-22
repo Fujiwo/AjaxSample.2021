@@ -1,1 +1,1 @@
-Ajax samples.
+Ajax samples for .NET Framework and .NET (Core).
