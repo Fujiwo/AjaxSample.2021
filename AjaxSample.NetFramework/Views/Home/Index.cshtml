@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "書籍一覧";
+}
+
+<h1>
+    @ViewBag.Title
+</h1>
+
+<div>
+    <span>本の検索</span>
+
+    <hr>
+
+    @* JavaScript + Partial View *@
+    <form id="form1">
+        @Html.AntiForgeryToken()
+        <input type="text" name="searchText">
+        <input type="submit" value="検索">
+    </form>
+
+    <hr>
+
+    @*
+        MVC5 Ajax.BeginForm()を利用するための手順
+        https://qiita.com/m-otoguro/items/1250015aed6907a8d9e7
+    *@
+
+    @* Ajax.BeginForm *@
+    @using (Ajax.BeginForm("Books", "Home",
+        new AjaxOptions {
+            HttpMethod = "POST",
+            UpdateTargetId = "result"
+        })) {
+        @Html.AntiForgeryToken()
+        <input type="text" name="searchText">
+        <input type="submit" value="検索">
+    }
+
+    <hr>
+
+    @* JavaScript + Web API *@
+    <form id="form2">
+        <input type="text" id="searchText">
+        <input type="submit" value="検索">
+    </form>
+
+    <hr>
+
+    <div id="result"></div>
+
+    <hr>
+</div>
+
+@section scripts {
+    @* JavaScript + Partial View *@
+    @* JavaScript + Web API *@
+    <script src="~/Scripts/HomeIndex.js"></script>
+
+    @* Ajax.BeginForm *@
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+}
